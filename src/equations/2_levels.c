@@ -1,4 +1,5 @@
 #include <equations/2_levels.h>
+#include <equations/utils.h>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_multiroots.h>
 #include <gsl/gsl_sf_trig.h>
@@ -346,119 +347,7 @@ int system_2_levels_fdf(const gsl_vector *x, void *p, gsl_vector *f, gsl_matrix 
 }
 
 
-static inline gsl_vector *vector_centred(const gsl_vector *v, const gsl_vector *center)
-{
-    gsl_vector *res = gsl_vector_alloc(2);
-    gsl_vector_memcpy(res,v);
-    gsl_vector_sub(res,center);
-    return res;
-}
-
-
-int center_from_points_and_radius(const gsl_vector *p1, const gsl_vector *p2, double r, gsl_vector *center)
-{
-    gsl_vector *v12 = vector_centred(p1,p2);
-    gsl_vector_scale(v12,0.5);
-    double x = gsl_vector_get(v12,0);
-    double y = gsl_vector_get(v12,1);
-    if(x > 0)
-    {
-        gsl_vector_set(center,0,y);
-        gsl_vector_set(center,1,-x);
-    }
-    else
-    {
-        gsl_vector_set(center,0,-y);
-        gsl_vector_set(center,1,x);
-    }
-    double rv_norm = gsl_blas_dnrm2(center);
-    double target_norm = sqrt(gsl_pow_2(r) - gsl_pow_2(rv_norm));
-    gsl_vector_scale(center,target_norm/rv_norm);
-    gsl_vector_add(center,p2);
-    gsl_vector_add(center,v12);
-
-    gsl_vector_free(v12);
-
-    return GSL_SUCCESS;
-}
-
-
-int vectors_ang_clockwise(const gsl_vector *a, const gsl_vector *b, double *ang)
-{
-    double dot;
-    gsl_blas_ddot(a,b,&dot);
-
-    double a1 = gsl_vector_get(a,0);
-    double a2 = gsl_vector_get(a,1);
-    double b1 = gsl_vector_get(b,0);
-    double b2 = gsl_vector_get(b,1);
-    double det = a1*b2 - a2*b1;
-
-    *ang = -atan2(det,dot);
-    if(*ang < 0)
-        *ang = 2*M_PI + *ang;
-
-    return GSL_SUCCESS;
-}
-
-
-double area_between_vectors_triangle(const gsl_vector *a, const gsl_vector *b)
-{
-    double a1 = gsl_vector_get(a,0);
-    double a2 = gsl_vector_get(a,1);
-    double b1 = gsl_vector_get(b,0);
-    double b2 = gsl_vector_get(b,1);
-    double area = (a1*b2 - a2*b1)/2;
-    area = fabs(area);
-
-    return area;
-}
-
-
-static inline double area_segment(double ang, double r)
-{
-    return ang/2 * gsl_pow_2(r); 
-}
-
-
-int point_from_alpha(double alpha, double norm, gsl_vector *center, gsl_vector *v)
-{
-    gsl_vector_set(v,0,-gsl_sf_cos(alpha));
-    gsl_vector_set(v,1,gsl_sf_sin(alpha));
-    gsl_vector_scale(v,norm);
-    gsl_vector_add(v,center);
-
-    return GSL_SUCCESS;
-}
-
-
-static inline double add_angs(double ang1, double ang2)
-{
-    double res = ang1 + ang2;
-    double w = res/M_PI/2;
-    double w0 = (int)w;
-    w -= w0;
-    res = w * 2*M_PI;
-
-    return res;
-}
-
-
-static inline double sub_angs(double ang1, double ang2)
-{
-    double res = ang1 - ang2;
-    double w = res/M_PI/2;
-    double w0 = (int)w;
-    w -= w0;
-    res = w * 2*M_PI;
-    if(res < 0)
-        res += 2*M_PI;
-
-    return res;
-}
-
-
-int compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, double r_top, double r_bot, double phi_ad, double phi_dc, struct system_2_levels_params *params, gsl_vector *x0)
+int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, double r_top, double r_bot, double phi_ad, double phi_dc, struct system_2_levels_params *params, gsl_vector *x0)
 {
     gsl_vector *center_top = gsl_vector_alloc(2);
     if(center_from_points_and_radius(A,B,r_top,center_top) != GSL_SUCCESS)
@@ -477,8 +366,8 @@ int compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, doub
         exit(1);
     }
 
-    double a_dc = add_angs(a_ad,phi_ad);
-    double a_cb = add_angs(a_dc,phi_dc);
+    double a_dc = a_ad+phi_ad;
+    double a_cb = a_dc+phi_dc;
 
     gsl_vector *D = gsl_vector_alloc(2);
     if(point_from_alpha(a_dc,r_top,center_top,D) != GSL_SUCCESS)
@@ -536,7 +425,7 @@ int compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, doub
     gsl_vector *cD_top = vector_centred(D,center_top);
     double S_top = 0, S_bot = 0;
     S_bot += area_between_vectors_triangle(cC_bot,cD_bot);
-    double phi_dc_bot = add_angs(phi_ec,phi_ed);
+    double phi_dc_bot = phi_ec+phi_ed;
     S_bot += area_segment(phi_dc_bot,r_bot);
     S_top += area_between_vectors_triangle(cC_top,cD_top);
     S_top += area_between_vectors_triangle(cA,cB);
@@ -602,7 +491,7 @@ int compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, doub
 }
 
 
-int compute_init_config(double Ax, double Ay, double Bx, double By, double phi_ad, double phi_dc, double r_top, double r_bot, double k, double p_top, double p_bot, double p, double p_ac, struct system_2_levels_params *params, gsl_vector *x0)
+int system_2_levels_compute_init_config(double Ax, double Ay, double Bx, double By, double phi_ad, double phi_dc, double r_top, double r_bot, double k, double p_top, double p_bot, double p, double p_ac, struct system_2_levels_params *params, gsl_vector *x0)
 {
     gsl_vector *A = gsl_vector_alloc(2);
     gsl_vector_set(A,0,Ax);
@@ -610,7 +499,7 @@ int compute_init_config(double Ax, double Ay, double Bx, double By, double phi_a
     gsl_vector *B = gsl_vector_alloc(2);
     gsl_vector_set(B,0,Bx);
     gsl_vector_set(B,1,By);
-    if(compute_init_levels_positions(A,B,r_top,r_bot,phi_ad,phi_dc,params,x0) != GSL_SUCCESS)
+    if(__compute_init_levels_positions(A,B,r_top,r_bot,phi_ad,phi_dc,params,x0) != GSL_SUCCESS)
     {
         fprintf(stderr,"Failed to compute initial levels position\n");
         exit(1);
@@ -628,17 +517,6 @@ int compute_init_config(double Ax, double Ay, double Bx, double By, double phi_a
     gsl_vector_free(B);
 
     return GSL_SUCCESS;
-}
-
-
-void print_matrix(FILE *stream, const gsl_matrix *m)
-{
-    for(int i = 0; i < m->size1; ++i)
-    {
-        for(int j = 0; j < m->size2; ++j)
-            fprintf(stream,"%3.3f ",gsl_matrix_get(m,i,j));
-        fprintf(stream,"\n");
-    }
 }
 
 
@@ -683,11 +561,9 @@ static inline void system_2_levels_print_J_diff(FILE *stream, const gsl_vector *
 
 int system_2_levels_eval()
 {
-    printf("Enter\n");
     struct system_2_levels_params params;
     gsl_vector *x0 = gsl_vector_alloc(N_eq);
-    compute_init_config(0.482,1.4,0.28,0.85,3.129,1.162,0.5,0.35,1,20000,6500,101325,1500,&params,x0);
-    printf("Enter1\n");
+    system_2_levels_compute_init_config(0.482,1.4,0.28,0.85,3.129,1.162,0.5,0.35,1,20000,6500,101325,1500,&params,x0);
 
     const gsl_multiroot_fdfsolver_type *T = gsl_multiroot_fdfsolver_newton;
     gsl_multiroot_fdfsolver *s = gsl_multiroot_fdfsolver_alloc(T,N_eq);
@@ -700,7 +576,6 @@ int system_2_levels_eval()
     fdf.params = &params;
 
     FILE *fx0 = fopen("2_levels_init.txt","w");
-    printf("Enter2\n");
     gsl_vector_fprintf(fx0,x0,"%g");
     fclose(fx0);
 

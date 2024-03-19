@@ -10,8 +10,7 @@ include_directories(include)
 
 file(GLOB SOURCES CMAKE_CONFIGURE_DEPENDS
         "${CMAKE_SOURCE_DIR}/src/equations/*.c"
-        "${CMAKE_SOURCE_DIR}/src/*.c"
-        "${CMAKE_SOURCE_DIR}/*.c")
+        "${CMAKE_SOURCE_DIR}/src/*.c")
 
 add_executable(cw ${SOURCES})
 
