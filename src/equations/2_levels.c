@@ -90,88 +90,24 @@ int system_2_levels_f(const gsl_vector *x, void *p, gsl_vector *f)
     double eq17 = (-r_ed + y_ed) - (-r_ec + y_ec);
     gsl_vector_set(f,16,eq17);
 
-    // Point D steady
+    // Point D steadiness
     double eq18 = -p_top*r_ad*gsl_sf_sin(a_ad+phi_ad) + (p_top-p_bot)*r_dc*gsl_sf_sin(a_dc) + p_bot*r_ed*gsl_sf_sin(a_ed-phi_ed);
     gsl_vector_set(f,17,eq18);
     double eq19 = -p_top*r_ad*gsl_sf_cos(a_ad+phi_ad) + (p_top-p_bot)*r_dc*gsl_sf_cos(a_dc) + p_bot*r_ed*gsl_sf_cos(a_ed-phi_ed);
     gsl_vector_set(f,18,eq19);
 
-    // Point C steady
+    // Point C steadiness
     double eq20 = (p_top-params->p_ac)*r_cb*gsl_sf_sin(a_cb) - (p_top-p_bot)*r_dc*gsl_sf_sin(a_dc+phi_dc) - (p_bot-params->p_ac)*r_ec*gsl_sf_sin(a_ec+phi_ec);
     gsl_vector_set(f,19,eq20);
     double eq21 = (p_top-params->p_ac)*r_cb*gsl_sf_cos(a_cb) - (p_top-p_bot)*r_dc*gsl_sf_cos(a_dc+phi_dc) - (p_bot-params->p_ac)*r_ec*gsl_sf_cos(a_ec+phi_ec);
     gsl_vector_set(f,20,eq21);
 
-    // Point E steady
+    // Point E steadiness
     double eq22 = (p_bot-params->p_ac)*r_ec - p_bot*r_ed;
     gsl_vector_set(f,21,eq22);
 
-    /*
-    double xp_top[N_top+1], yp_top[N_top+1];
-    double xp_bot[N_bot+1], yp_bot[N_bot+1];
-    for(int pt_i = 0; pt_i < N_top_PpA; ++pt_i)
-    {
-        double ang_step = (double)pt_i/(double)N_top_PpA;
-        double ang_ad = a_ad + ang_step*phi_ad;
-        xp_top[pt_i] = x_ad - r_ad*gsl_sf_cos(ang_ad);
-        yp_top[pt_i] = y_ad + r_ad*gsl_sf_sin(ang_ad);
-
-        double ang_dc = a_dc + ang_step*phi_dc;
-        xp_top[pt_i+N_top_PpA] = x_dc - r_dc*gsl_sf_cos(ang_dc);
-        yp_top[pt_i+N_top_PpA] = y_dc + r_dc*gsl_sf_sin(ang_dc);
     
-        double ang_cb = a_cb + ang_step*phi_cb;
-        xp_top[pt_i+N_top_PpA*2] = x_cb - r_cb*gsl_sf_cos(ang_cb);
-        yp_top[pt_i+N_top_PpA*2] = y_cb + r_cb*gsl_sf_sin(ang_cb);
-    }
-    xp_top[N_top] = xp_top[0];
-    yp_top[N_top] = yp_top[0];
-
-    for(int pb_i = 0; pb_i < N_bot_PpA; ++pb_i)
-    {
-        double ang_step = (double)pb_i/(double)N_bot_PpA;
-        double ang_ec = a_ec + ang_step*phi_ec;
-        xp_bot[pb_i] = x_bot - r_ec*gsl_sf_cos(ang_ec);
-        yp_bot[pb_i] = y_ec + r_ec*gsl_sf_sin(ang_ec);
-
-        double ang_ed = a_ed + (ang_step-1)*phi_ed;
-        xp_bot[pb_i+N_bot_PpA] = x_bot - r_ed*gsl_sf_cos(ang_ed);
-        yp_bot[pb_i+N_bot_PpA] = y_ed + r_ed*gsl_sf_sin(ang_ed);
-    }
-    xp_bot[N_bot] = xp_bot[0];
-    yp_bot[N_bot] = yp_bot[0];
-
-    double S_top = 0.0;
-    for(int pt_i = 0; pt_i < N_top; ++pt_i)
-    {
-        double v1_x = xp_top[pt_i];
-        double v1_y = yp_top[pt_i];
-        double v2_x = xp_top[pt_i+1];
-        double v2_y = yp_top[pt_i+1];
-        S_top += v1_x*v2_y - v1_y*v2_x;
-    }
-    S_top /= 2;
-    S_top = fabs(S_top);
-
-    double S_bot = 0.0;
-    for(int pt_i = 0; pt_i < N_bot; ++pt_i)
-    {
-        double v1_x = xp_bot[pt_i];
-        double v1_y = yp_bot[pt_i];
-        double v2_x = xp_bot[pt_i+1];
-        double v2_y = yp_bot[pt_i+1];
-        S_bot += v1_x*v2_y - v1_y*v2_x;
-    }
-    S_bot /= 2;
-    S_bot = fabs(S_bot);
-
-    // printf("S_top: %f; S_bot: %f\n",S_top,S_bot);
-
-    double eq23 = (params->p_top_0+params->p)*pow((params->S_top_0),params->k) - (params->p+p_top)*pow(S_top,params->k);
-    gsl_vector_set(f,22,eq23);
-    double eq24 = (params->p_bot_0+params->p)*pow((params->S_bot_0),params->k) - (params->p+p_bot)*pow(S_bot,params->k);
-    gsl_vector_set(f,23,eq24);
-    */
+    // Balloons pressures
    
     double eq23 = p_top - params->p_top_0;
     gsl_vector_set(f,22,eq23);
@@ -335,7 +271,7 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     gsl_matrix_set(J,16,20,-1);
 
 
-    // Point D steady
+    // Point D steadiness
     // p_top*r_ad*gsl_sf_sin(a_ad+phi_ad) - (p_top-p_bot)*r_dc*gsl_sf_sin(a_dc) - p_bot*r_ed*gsl_sf_sin(a_ed-phi_ed);
 
     gsl_matrix_set(J,17,0,-p_top*r_ad*gsl_sf_cos(a_ad+phi_ad));
@@ -360,7 +296,7 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     gsl_matrix_set(J,18,23,-r_dc*gsl_sf_cos(a_dc) + r_ed*gsl_sf_cos(a_ed-phi_ed));
 
 
-    // Point C steady
+    // Point C steadiness
 
     //p_top*r_cb*gsl_sf_sin(a_cb) - (p_top-p_bot)*r_dc*gsl_sf_sin(a_dc+phi_dc) - p_bot*r_ec*gsl_sf_sin(a_ec+phi_ec)
     gsl_matrix_set(J,19,6,(p_top-params->p_ac)*gsl_sf_sin(a_cb));
@@ -385,167 +321,14 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     gsl_matrix_set(J,20,23,r_dc*gsl_sf_cos(a_dc+phi_dc) - r_ec*gsl_sf_cos(a_ec+phi_ec));
 
 
-    // Point E steady
+    // Point E steadiness
 
     gsl_matrix_set(J,21,16,-p_bot);
     gsl_matrix_set(J,21,19,(p_bot-params->p_ac));
     gsl_matrix_set(J,21,23,r_ec-r_ed);
 
-    /*
-    double xp_top[N_top+1], yp_top[N_top+1];
-    double xp_bot[N_bot+1], yp_bot[N_bot+1];
-    gsl_vector *grad_xp_top[N_top+1], *grad_yp_top[N_top+1];
-    gsl_vector *grad_xp_bot[N_bot+1], *grad_yp_bot[N_bot+1];
-    for(int i = 0; i < N_top+1; ++i)
-    {
-        grad_xp_top[i] = gsl_vector_calloc(N_eq);
-        grad_yp_top[i] = gsl_vector_calloc(N_eq);
-    }
-    for(int i = 0; i < N_bot+1; ++i)
-    {
-        grad_xp_bot[i] = gsl_vector_calloc(N_eq);
-        grad_yp_bot[i] = gsl_vector_calloc(N_eq);
-    }
-    for(int pt_i = 0; pt_i < N_top_PpA; ++pt_i)
-    {
-        double ang_step = (double)pt_i/(double)N_top_PpA;
-        double ang_ad = a_ad + ang_step*phi_ad;
-        xp_top[pt_i] = x_ad - r_ad*gsl_sf_cos(ang_ad);
-        yp_top[pt_i] = y_ad + r_ad*gsl_sf_sin(ang_ad);
-        gsl_vector_set(grad_xp_top[pt_i],0,r_ad*ang_step*gsl_sf_sin(ang_ad));
-        gsl_vector_set(grad_xp_top[pt_i],1,-gsl_sf_cos(ang_ad));
-        gsl_vector_set(grad_xp_top[pt_i],2,1);
-        gsl_vector_set(grad_xp_top[pt_i],4,r_ad*gsl_sf_sin(ang_ad));
-        gsl_vector_set(grad_yp_top[pt_i],0,r_ad*ang_step*gsl_sf_cos(ang_ad));
-        gsl_vector_set(grad_yp_top[pt_i],1,gsl_sf_sin(ang_ad));
-        gsl_vector_set(grad_yp_top[pt_i],3,1);
-        gsl_vector_set(grad_yp_top[pt_i],4,r_ad*gsl_sf_cos(ang_ad));
-
-        double ang_dc = a_dc + ang_step*phi_dc;
-        xp_top[pt_i+N_top_PpA] = x_dc - r_dc*gsl_sf_cos(ang_dc);
-        yp_top[pt_i+N_top_PpA] = y_dc + r_dc*gsl_sf_sin(ang_dc);
-        gsl_vector_set(grad_xp_top[pt_i+N_top_PpA],10,r_dc*ang_step*gsl_sf_sin(ang_dc));
-        gsl_vector_set(grad_xp_top[pt_i+N_top_PpA],11,-gsl_sf_cos(ang_dc));
-        gsl_vector_set(grad_xp_top[pt_i+N_top_PpA],12,1);
-        gsl_vector_set(grad_xp_top[pt_i+N_top_PpA],14,r_dc*gsl_sf_sin(ang_dc));
-        gsl_vector_set(grad_yp_top[pt_i+N_top_PpA],10,r_dc*ang_step*gsl_sf_cos(ang_dc));
-        gsl_vector_set(grad_yp_top[pt_i+N_top_PpA],11,gsl_sf_sin(ang_dc));
-        gsl_vector_set(grad_yp_top[pt_i+N_top_PpA],13,1);
-        gsl_vector_set(grad_yp_top[pt_i+N_top_PpA],14,r_dc*gsl_sf_cos(ang_dc));
     
-        double ang_cb = a_cb + ang_step*phi_cb;
-        xp_top[pt_i+N_top_PpA*2] = x_cb - r_cb*gsl_sf_cos(ang_cb);
-        yp_top[pt_i+N_top_PpA*2] = y_cb + r_cb*gsl_sf_sin(ang_cb);
-        gsl_vector_set(grad_xp_top[pt_i+N_top_PpA*2],5,r_cb*ang_step*gsl_sf_sin(ang_cb));
-        gsl_vector_set(grad_xp_top[pt_i+N_top_PpA*2],6,-gsl_sf_cos(ang_cb));
-        gsl_vector_set(grad_xp_top[pt_i+N_top_PpA*2],7,1);
-        gsl_vector_set(grad_xp_top[pt_i+N_top_PpA*2],9,r_cb*gsl_sf_sin(ang_cb));
-        gsl_vector_set(grad_yp_top[pt_i+N_top_PpA*2],5,r_cb*ang_step*gsl_sf_cos(ang_cb));
-        gsl_vector_set(grad_yp_top[pt_i+N_top_PpA*2],6,gsl_sf_sin(ang_cb));
-        gsl_vector_set(grad_yp_top[pt_i+N_top_PpA*2],8,1);
-        gsl_vector_set(grad_yp_top[pt_i+N_top_PpA*2],9,r_cb*gsl_sf_cos(ang_cb));
-    }
-    xp_top[N_top] = xp_top[0];
-    yp_top[N_top] = yp_top[0];
-    gsl_vector_memcpy(grad_xp_top[N_top],grad_xp_top[0]);
-    gsl_vector_memcpy(grad_yp_top[N_top],grad_yp_top[0]);
-
-    for(int pb_i = 0; pb_i < N_bot_PpA; ++pb_i)
-    {
-        double ang_step = (double)pb_i/(double)N_bot_PpA;
-        double ang_ec = a_ec + ang_step*phi_ec;
-        xp_bot[pb_i] = x_bot - r_ec*gsl_sf_cos(ang_ec);
-        yp_bot[pb_i] = y_ec + r_ec*gsl_sf_sin(ang_ec);
-        gsl_vector_set(grad_xp_bot[pb_i],18,r_ec*ang_step*gsl_sf_sin(ang_ec));
-        gsl_vector_set(grad_xp_bot[pb_i],19,-gsl_sf_cos(ang_ec));
-        gsl_vector_set(grad_xp_bot[pb_i],21,1);
-        gsl_vector_set(grad_yp_bot[pb_i],18,r_ec*ang_step*gsl_sf_cos(ang_ec));
-        gsl_vector_set(grad_yp_bot[pb_i],19,gsl_sf_sin(ang_ec));
-        gsl_vector_set(grad_yp_bot[pb_i],20,1);
-
-        double ang_ed = a_ed + (ang_step-1)*phi_ed;
-        xp_bot[pb_i+N_bot_PpA] = x_bot - r_ed*gsl_sf_cos(ang_ed);
-        yp_bot[pb_i+N_bot_PpA] = y_ed + r_ed*gsl_sf_sin(ang_ed);
-        gsl_vector_set(grad_xp_bot[pb_i+N_bot_PpA],15,r_ed*(ang_step-1)*gsl_sf_sin(ang_ed));
-        gsl_vector_set(grad_xp_bot[pb_i+N_bot_PpA],16,-gsl_sf_cos(ang_ed));
-        gsl_vector_set(grad_xp_bot[pb_i+N_bot_PpA],21,1);
-        gsl_vector_set(grad_yp_bot[pb_i+N_bot_PpA],15,r_ed*(ang_step-1)*gsl_sf_cos(ang_ed));
-        gsl_vector_set(grad_yp_bot[pb_i+N_bot_PpA],16,gsl_sf_sin(ang_ed));
-        gsl_vector_set(grad_yp_bot[pb_i+N_bot_PpA],17,1);
-    }
-    xp_bot[N_bot] = xp_bot[0];
-    yp_bot[N_bot] = yp_bot[0];
-    gsl_vector_memcpy(grad_xp_bot[N_bot],grad_xp_bot[0]);
-    gsl_vector_memcpy(grad_yp_bot[N_bot],grad_yp_bot[0]);
-
-    gsl_vector J_V_top = gsl_matrix_row(J,22).vector;
-    gsl_vector *grad_v = gsl_vector_calloc(N_eq);
-    double S_top = 0.0;
-    for(int pt_i = 0; pt_i < N_top; ++pt_i)
-    {
-        double v1_x = xp_top[pt_i];
-        double v1_y = yp_top[pt_i];
-        double v2_x = xp_top[pt_i+1];
-        double v2_y = yp_top[pt_i+1];
-        S_top += v1_x*v2_y - v1_y*v2_x;
-        gsl_vector_memcpy(grad_v,grad_xp_top[pt_i]);
-        gsl_vector_scale(grad_v,v2_y);
-        gsl_vector_add(&J_V_top,grad_v);
-        gsl_vector_memcpy(grad_v,grad_yp_top[pt_i]);
-        gsl_vector_scale(grad_v,-v2_x);
-        gsl_vector_add(&J_V_top,grad_v);
-        gsl_vector_memcpy(grad_v,grad_xp_top[pt_i+1]);
-        gsl_vector_scale(grad_v,-v1_y);
-        gsl_vector_add(&J_V_top,grad_v);
-        gsl_vector_memcpy(grad_v,grad_yp_top[pt_i+1]);
-        gsl_vector_scale(grad_v,v1_x);
-        gsl_vector_add(&J_V_top,grad_v);
-    }
-    if(S_top >= 0)
-        gsl_vector_scale(&J_V_top,0.5);
-    else
-        gsl_vector_scale(&J_V_top,-0.5);
-    S_top /= 2;
-    S_top = fabs(S_top);
-    double S_top_pow_k_1 = pow(S_top,params->k-1);
-    gsl_vector_scale(&J_V_top,-(params->p+p_top)*params->k*S_top_pow_k_1);
-    gsl_vector_set(&J_V_top,22,S_top_pow_k_1*S_top);
-
-    gsl_vector J_V_bot = gsl_matrix_row(J,23).vector;
-    double S_bot = 0.0;
-    for(int pb_i = 0; pb_i < N_bot; ++pb_i)
-    {
-        double v1_x = xp_bot[pb_i];
-        double v1_y = yp_bot[pb_i];
-        double v2_x = xp_bot[pb_i+1];
-        double v2_y = yp_bot[pb_i+1];
-        S_bot += v1_x*v2_y - v1_y*v2_x;
-        gsl_vector_memcpy(grad_v,grad_xp_bot[pb_i]);
-        gsl_vector_scale(grad_v,v2_y);
-        gsl_vector_add(&J_V_bot,grad_v);
-        gsl_vector_memcpy(grad_v,grad_yp_bot[pb_i]);
-        gsl_vector_scale(grad_v,-v2_x);
-        gsl_vector_add(&J_V_bot,grad_v);
-        gsl_vector_memcpy(grad_v,grad_xp_bot[pb_i+1]);
-        gsl_vector_scale(grad_v,-v1_y);
-        gsl_vector_add(&J_V_bot,grad_v);
-        gsl_vector_memcpy(grad_v,grad_yp_bot[pb_i+1]);
-        gsl_vector_scale(grad_v,v1_x);
-        gsl_vector_add(&J_V_bot,grad_v);
-    }
-    if(S_bot >= 0)
-        gsl_vector_scale(&J_V_bot,0.5);
-    else
-        gsl_vector_scale(&J_V_bot,-0.5);
-    S_bot /= 2;
-    S_bot = fabs(S_bot);
-    double S_bot_pow_k_1 = pow(S_bot,params->k-1);
-    gsl_vector_scale(&J_V_bot,-(params->p+p_bot)*params->k*S_bot_pow_k_1);
-    gsl_vector_set(&J_V_bot,23,S_bot_pow_k_1*S_bot);
-    
-    gsl_vector_free(grad_v);
-
-    */
+    // Balloons pressures
 
     gsl_matrix_set(J,22,22,1);
     gsl_matrix_set(J,23,23,1);
