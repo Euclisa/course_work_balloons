@@ -4,7 +4,7 @@ project(cw LANGUAGES C)
 
 set(CMAKE_C_EXTENSIONS ON)
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -Wall")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -Wall -fsanitize=address,undefined")
 
 include_directories(include)
 

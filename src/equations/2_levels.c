@@ -5,12 +5,7 @@
 #include <gsl/gsl_sf_trig.h>
 #include <gsl/gsl_blas.h>
 
-const size_t N_eq = 24;
-
-const int N_top_PpA = 5;    // Points per Arc
-const int N_top = N_top_PpA*3;
-const int N_bot_PpA = 5;    // Points per Arc
-const int N_bot = N_bot_PpA*2;
+static const size_t N_eq = 24;
 
 
 int system_2_levels_f(const gsl_vector *x, void *p, gsl_vector *f)
@@ -155,7 +150,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     gsl_matrix_set_all(J,0);
 
     // Preservation of length
-
     gsl_matrix_set(J,0,0,r_ad);
     gsl_matrix_set(J,0,1,phi_ad);
     
@@ -172,7 +166,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
 
 
     // Point A continuity
-
     gsl_matrix_set(J,4,1,-gsl_sf_cos(a_ad));
     gsl_matrix_set(J,4,2,1);
     gsl_matrix_set(J,4,4,r_ad*gsl_sf_sin(a_ad));
@@ -183,7 +176,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     
 
     // Point B continuity
-
     gsl_matrix_set(J,6,5,r_cb*gsl_sf_sin(phi_cb+a_cb));
     gsl_matrix_set(J,6,6,-gsl_sf_cos(phi_cb+a_cb));
     gsl_matrix_set(J,6,7,1);
@@ -196,7 +188,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     
 
     // Point C continuity
-
     gsl_matrix_set(J,8,6,gsl_sf_cos(a_cb));
     gsl_matrix_set(J,8,7,-1);
     gsl_matrix_set(J,8,9,-r_cb*gsl_sf_sin(a_cb));
@@ -231,7 +222,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
 
 
     // Point D continuity
-
     gsl_matrix_set(J,12,0,r_ad*gsl_sf_sin(phi_ad+a_ad));
     gsl_matrix_set(J,12,1,-gsl_sf_cos(phi_ad+a_ad));
     gsl_matrix_set(J,12,2,1);
@@ -265,7 +255,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     gsl_matrix_set(J,15,17,-1);
 
     // Point E continuity
-
     gsl_matrix_set(J,16,16,-1);
     gsl_matrix_set(J,16,17,1);
     gsl_matrix_set(J,16,19,1);
@@ -273,8 +262,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
 
 
     // Point D steadiness
-    // p_top*r_ad*gsl_sf_sin(a_ad+phi_ad) - (p_top-p_bot)*r_dc*gsl_sf_sin(a_dc) - p_bot*r_ed*gsl_sf_sin(a_ed-phi_ed);
-
     gsl_matrix_set(J,17,0,-p_top*r_ad*gsl_sf_cos(a_ad+phi_ad));
     gsl_matrix_set(J,17,1,-p_top*gsl_sf_sin(a_ad+phi_ad));
     gsl_matrix_set(J,17,4,-p_top*r_ad*gsl_sf_cos(a_ad+phi_ad));
@@ -285,7 +272,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     gsl_matrix_set(J,17,22,-r_ad*gsl_sf_sin(a_ad+phi_ad) + r_dc*gsl_sf_sin(a_dc));
     gsl_matrix_set(J,17,23,-r_dc*gsl_sf_sin(a_dc) + r_ed*gsl_sf_sin(a_ed-phi_ed));
 
-    // -p_top*r_ad*gsl_sf_cos(a_ad+phi_ad) + (p_top-p_bot)*r_dc*gsl_sf_cos(a_dc) + p_bot*r_ed*gsl_sf_cos(a_ed-phi_ed)
     gsl_matrix_set(J,18,0,p_top*r_ad*gsl_sf_sin(a_ad+phi_ad));
     gsl_matrix_set(J,18,1,-p_top*gsl_sf_cos(a_ad+phi_ad));
     gsl_matrix_set(J,18,4,p_top*r_ad*gsl_sf_sin(a_ad+phi_ad));
@@ -298,8 +284,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
 
 
     // Point C steadiness
-
-    //p_top*r_cb*gsl_sf_sin(a_cb) - (p_top-p_bot)*r_dc*gsl_sf_sin(a_dc+phi_dc) - p_bot*r_ec*gsl_sf_sin(a_ec+phi_ec)
     gsl_matrix_set(J,19,6,(p_top-params->p_ac)*gsl_sf_sin(a_cb));
     gsl_matrix_set(J,19,9,(p_top-params->p_ac)*r_cb*gsl_sf_cos(a_cb));
     gsl_matrix_set(J,19,10,-(p_top-p_bot)*r_dc*gsl_sf_cos(a_dc+phi_dc));
@@ -310,7 +294,6 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
     gsl_matrix_set(J,19,22,r_cb*gsl_sf_sin(a_cb) - r_dc*gsl_sf_sin(a_dc+phi_dc));
     gsl_matrix_set(J,19,23,r_dc*gsl_sf_sin(a_dc+phi_dc) - r_ec*gsl_sf_sin(a_ec+phi_ec));
 
-    //-p_top*r_cb*gsl_sf_cos(a_cb) + (p_top-p_bot)*r_dc*gsl_sf_cos(a_dc+phi_dc) + p_bot*r_ec*gsl_sf_cos(a_ec+phi_ec)
     gsl_matrix_set(J,20,6,(p_top-params->p_ac)*gsl_sf_cos(a_cb));
     gsl_matrix_set(J,20,9,-(p_top-params->p_ac)*r_cb*gsl_sf_sin(a_cb));
     gsl_matrix_set(J,20,10,(p_top-p_bot)*r_dc*gsl_sf_sin(a_dc+phi_dc));
@@ -323,14 +306,12 @@ int system_2_levels_df(const gsl_vector *x, void *p, gsl_matrix *J)
 
 
     // Point E steadiness
-
     gsl_matrix_set(J,21,16,-p_bot);
     gsl_matrix_set(J,21,19,(p_bot-params->p_ac));
     gsl_matrix_set(J,21,23,r_ec-r_ed);
 
     
     // Balloons pressures
-
     gsl_matrix_set(J,22,22,1);
     gsl_matrix_set(J,23,23,1);
 
@@ -347,7 +328,7 @@ int system_2_levels_fdf(const gsl_vector *x, void *p, gsl_vector *f, gsl_matrix 
 }
 
 
-int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, double r_top, double r_bot, double phi_ad, double phi_dc, struct system_2_levels_params *params, gsl_vector *x0)
+static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, double r_top, double r_bot, double phi_ad, double phi_dc, struct system_2_levels_params *params, gsl_vector *x0)
 {
     gsl_vector *center_top = gsl_vector_alloc(2);
     if(center_from_points_and_radius(A,B,r_top,center_top) != GSL_SUCCESS)
@@ -422,16 +403,6 @@ int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, do
         exit(1);
     }
 
-    gsl_vector *cD_top = vector_centred(D,center_top);
-    double S_top = 0, S_bot = 0;
-    S_bot += area_between_vectors_triangle(cC_bot,cD_bot);
-    double phi_dc_bot = phi_ec+phi_ed;
-    S_bot += area_segment(phi_dc_bot,r_bot);
-    S_top += area_between_vectors_triangle(cC_top,cD_top);
-    S_top += area_between_vectors_triangle(cA,cB);
-    S_top += area_segment(phi_cb,r_top);
-    S_top += area_segment(phi_ad,r_top);
-
     params->Ax = gsl_vector_get(A,0);
     params->Ay = gsl_vector_get(A,1);
     params->Bx = gsl_vector_get(B,0);
@@ -443,8 +414,6 @@ int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, do
     params->phi_ed_0 = phi_ed;
     params->r_bot_0 = r_bot;
     params->r_top_0 = r_top;
-    params->S_bot_0 = S_bot;
-    params->S_top_0 = S_top;
 
     double x_center_top = gsl_vector_get(center_top,0);
     double y_center_top = gsl_vector_get(center_top,1);
@@ -479,7 +448,6 @@ int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, do
     gsl_vector_free(cC_top);
     gsl_vector_free(C);
     gsl_vector_free(cD_bot);
-    gsl_vector_free(cD_top);
     gsl_vector_free(D);
     gsl_vector_free(cE);
     gsl_vector_free(E);
@@ -504,8 +472,6 @@ int system_2_levels_compute_init_config(double Ax, double Ay, double Bx, double 
         fprintf(stderr,"Failed to compute initial levels position\n");
         exit(1);
     }
-    params->k = k;
-    params->p = p;
     params->p_top_0 = p_top;
     params->p_bot_0 = p_bot;
     params->p_ac = p_ac;
@@ -517,45 +483,6 @@ int system_2_levels_compute_init_config(double Ax, double Ay, double Bx, double 
     gsl_vector_free(B);
 
     return GSL_SUCCESS;
-}
-
-
-void system_2_levels_J_estimate(const gsl_vector *x0, struct system_2_levels_params *params, gsl_matrix *J_est)
-{
-    gsl_vector *f = gsl_vector_alloc(N_eq);
-    gsl_matrix *J = gsl_matrix_alloc(N_eq,N_eq);
-    system_2_levels_fdf(x0,params,f,J);
-    gsl_vector *x0_new = gsl_vector_alloc(N_eq);
-    gsl_vector_memcpy(x0_new,x0);
-    const double eps = 1e-12;
-    for(int i = 0; i < N_eq; ++i)
-    {
-        gsl_vector df_dxi = gsl_matrix_column(J_est,i).vector;
-        double old_xi_v = gsl_vector_get(x0,i);
-        gsl_vector_set(x0_new,i,old_xi_v+eps);
-        system_2_levels_f(x0_new,params,&df_dxi);
-        gsl_vector_sub(&df_dxi,f);
-        gsl_vector_scale(&df_dxi,1.0/eps);
-        gsl_vector_set(x0_new,i,old_xi_v);
-    }
-}
-
-
-static inline void system_2_levels_print_J_diff(FILE *stream, const gsl_vector *x, struct system_2_levels_params *params)
-{
-    gsl_matrix *J_est = gsl_matrix_alloc(N_eq,N_eq);
-    gsl_matrix *J_diff = gsl_matrix_alloc(N_eq,N_eq);
-    gsl_matrix *J = gsl_matrix_alloc(N_eq,N_eq);
-    system_2_levels_df(x,params,J);
-    system_2_levels_J_estimate(x,params,J_est);
-    gsl_matrix_memcpy(J_diff,J);
-    gsl_matrix_sub(J_diff,J_est);
-    fprintf(stream,"Jacobian true:\n");
-    print_matrix(stream,J);
-    fprintf(stream,"Jacobian est:\n");
-    print_matrix(stream,J_est);
-    fprintf(stream,"Jacobian diff:\n");
-    print_matrix(stream,J_diff);
 }
 
 
@@ -574,6 +501,9 @@ int system_2_levels_eval()
     fdf.fdf = system_2_levels_fdf;
     fdf.n = N_eq;
     fdf.params = &params;
+
+    FILE *f_diff = fopen("diff.txt","w");
+    print_J_diff(f_diff,x0,&params,fdf.f,fdf.df);
 
     FILE *fx0 = fopen("2_levels_init.txt","w");
     gsl_vector_fprintf(fx0,x0,"%g");
@@ -598,6 +528,9 @@ int system_2_levels_eval()
     FILE *fx = fopen("2_levels.txt","w");
     gsl_vector_fprintf(fx,s->x,"%g");
     fclose(fx);
+
+    gsl_multiroot_fdfsolver_free(s);
+    gsl_vector_free(x0);
 
     return GSL_SUCCESS;
 }
