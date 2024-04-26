@@ -2,3 +2,4 @@ build/
 *.txt
 .tar.gz
 !CMakeLists.txt
+*.glade~

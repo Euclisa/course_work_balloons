@@ -127,7 +127,20 @@ void J_estimate(const gsl_vector *x0, void *params, gsl_matrix *J_est, int (*f)(
 }
 
 
-inline void print_J_diff(FILE *stream, const gsl_vector *x, void *params, int (*f)(const gsl_vector *x, void *params, gsl_vector *f), int (*df)(const gsl_vector *x, void *params, gsl_matrix *df))
+inline double add_angs(double ang1, double ang2)
+{
+    double res = ang1 + ang2;
+    double w = res/M_PI/2;
+    double w0 = (int)w;
+    w -= w0;
+    res = w * 2*M_PI;
+
+    return res;
+}
+
+
+
+void print_J_diff(FILE *stream, const gsl_vector *x, void *params, gsl_solver_f_t f, gsl_solver_df_t df)
 {
     size_t dim = x->size;
     gsl_matrix *J_est = gsl_matrix_alloc(dim,dim);
