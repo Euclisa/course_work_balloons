@@ -2,88 +2,198 @@
 <!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkAdjustment" id="adiabatic_constant">
+  <object class="GtkAdjustment" id="adiabatic_constant_l2">
     <property name="upper">4</property>
     <property name="value">1</property>
     <property name="step-increment">0.001</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="arcs_size_ad_adjustment">
+  <object class="GtkAdjustment" id="arcs_size_ad_adjustment_l2">
     <property name="lower">1.5</property>
     <property name="upper">3.5</property>
     <property name="value">3.12</property>
     <property name="step-increment">0.001</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="arcs_size_dc_adjustment">
+  <object class="GtkAdjustment" id="arcs_size_ad_adjustment_l3">
+    <property name="lower">1.5</property>
+    <property name="upper">3.5</property>
+    <property name="value">3.129</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="arcs_size_dc_adjustment_l2">
     <property name="lower">0.5</property>
     <property name="upper">2</property>
     <property name="value">1.169</property>
     <property name="step-increment">0.001</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="base_pos_ax_adjustment">
+  <object class="GtkAdjustment" id="arcs_size_dc_adjustment_l3">
+    <property name="lower">0.5</property>
+    <property name="upper">3</property>
+    <property name="value">1.1619999999999999</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="arcs_size_df_adjustment_l3">
+    <property name="lower">0.59999999999999998</property>
+    <property name="upper">3</property>
+    <property name="value">1.8</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="arcs_size_fe_adjustment_l3">
+    <property name="lower">0.5</property>
+    <property name="upper">2</property>
+    <property name="value">1</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="base_pos_ax_adjustment_l2">
     <property name="lower">0.5</property>
     <property name="upper">2</property>
     <property name="value">1.10</property>
     <property name="step-increment">0.01</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="base_pos_ay_adjustment">
+  <object class="GtkAdjustment" id="base_pos_ax_adjustment_l3">
+    <property name="lower">0.5</property>
+    <property name="upper">4</property>
+    <property name="value">1.7</property>
+    <property name="step-increment">0.01</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="base_pos_ay_adjustment_l2">
     <property name="lower">0.20</property>
     <property name="upper">2</property>
     <property name="value">1.8</property>
     <property name="step-increment">0.01</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="base_pos_bx_adjustment">
+  <object class="GtkAdjustment" id="base_pos_ay_adjustment_l3">
+    <property name="lower">0.20</property>
+    <property name="upper">4</property>
+    <property name="value">2.5</property>
+    <property name="step-increment">0.01</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="base_pos_bx_adjustment_l2">
     <property name="lower">0.5</property>
     <property name="upper">2</property>
     <property name="value">0.78</property>
     <property name="step-increment">0.01</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="base_pos_by_adjustment">
+  <object class="GtkAdjustment" id="base_pos_bx_adjustment_l3">
+    <property name="lower">0.5</property>
+    <property name="upper">4</property>
+    <property name="value">1.3799999999999999</property>
+    <property name="step-increment">0.01</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="base_pos_by_adjustment_l2">
     <property name="lower">0.20</property>
     <property name="upper">2</property>
     <property name="value">1.25</property>
     <property name="step-increment">0.01</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="bottom_level_radius_adjustment">
+  <object class="GtkAdjustment" id="base_pos_by_adjustment_l3">
+    <property name="lower">0.20</property>
+    <property name="upper">4</property>
+    <property name="value">1.95</property>
+    <property name="step-increment">0.01</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="bottom_level_radius_adjustment_l2">
     <property name="lower">0.10</property>
     <property name="upper">1</property>
     <property name="value">0.34999999999999998</property>
     <property name="step-increment">0.01</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="pressure_atm_adjustment">
+  <object class="GtkAdjustment" id="bottom_level_radius_adjustment_l3">
+    <property name="lower">0.10</property>
+    <property name="upper">1</property>
+    <property name="value">0.29999999999999999</property>
+    <property name="step-increment">0.01</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="middle_level_radius_adjustment_l3">
+    <property name="lower">0.10</property>
+    <property name="upper">1</property>
+    <property name="value">0.40</property>
+    <property name="step-increment">0.01</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="pressure_atm_adjustment_l2">
     <property name="upper">1000000</property>
-    <property name="value">101325</property>
+    <property name="value">101300</property>
     <property name="step-increment">100</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="pressure_bot_adjustment">
-    <property name="lower">1000</property>
-    <property name="upper">40000</property>
-    <property name="value">6500</property>
-    <property name="step-increment">20</property>
+  <object class="GtkAdjustment" id="pressure_atm_adjustment_l3">
+    <property name="upper">1000000</property>
+    <property name="value">101300</property>
+    <property name="step-increment">100</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="pressure_ship_adjustment">
+  <object class="GtkAdjustment" id="pressure_bot_adjustment_l2">
+    <property name="lower">500</property>
+    <property name="upper">40000</property>
+    <property name="value">6500</property>
+    <property name="step-increment">50</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="pressure_bot_adjustment_l3">
+    <property name="lower">1000</property>
+    <property name="upper">40000</property>
+    <property name="value">2000</property>
+    <property name="step-increment">50</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="pressure_middle_adjustment_l3">
+    <property name="lower">1000</property>
+    <property name="upper">40000</property>
+    <property name="value">6000</property>
+    <property name="step-increment">50</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="pressure_ship_adjustment_l2">
     <property name="upper">10000</property>
     <property name="value">1500</property>
     <property name="step-increment">10</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="pressure_top_adjustment">
+  <object class="GtkAdjustment" id="pressure_ship_adjustment_l3">
+    <property name="upper">10000</property>
+    <property name="value">800</property>
+    <property name="step-increment">10</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="pressure_top_adjustment_l2">
     <property name="lower">1000</property>
     <property name="upper">40000</property>
     <property name="value">20000</property>
     <property name="step-increment">50</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="top_level_radius_adjustment">
+  <object class="GtkAdjustment" id="pressure_top_adjustment_l3">
+    <property name="lower">1000</property>
+    <property name="upper">40000</property>
+    <property name="value">20000.99</property>
+    <property name="step-increment">50</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="top_level_radius_adjustment_l2">
+    <property name="lower">0.10</property>
+    <property name="upper">1</property>
+    <property name="value">0.5</property>
+    <property name="step-increment">0.01</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="top_level_radius_adjustment_l3">
     <property name="lower">0.10</property>
     <property name="upper">1</property>
     <property name="value">0.5</property>
@@ -158,7 +268,7 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSwitch" id="adiabatic">
+                                  <object class="GtkSwitch" id="adiabatic_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
                                   </object>
@@ -173,6 +283,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
+                                <property name="padding">5</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
@@ -197,7 +308,7 @@
                                   <object class="GtkSpinButton" id="adiabatic_constant_spin">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">adiabatic_constant</property>
+                                    <property name="adjustment">adiabatic_constant_l2</property>
                                     <property name="climb-rate">0.02</property>
                                     <property name="digits">3</property>
                                     <property name="numeric">True</property>
@@ -279,11 +390,11 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="ax">
+                                  <object class="GtkSpinButton" id="ax_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">base_pos_ax_adjustment</property>
-                                    <property name="climb-rate">0.05</property>
+                                    <property name="adjustment">base_pos_ax_adjustment_l2</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
                                   </object>
@@ -319,10 +430,11 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="ay">
+                                  <object class="GtkSpinButton" id="ay_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">base_pos_ay_adjustment</property>
+                                    <property name="adjustment">base_pos_ay_adjustment_l2</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
                                   </object>
@@ -358,10 +470,11 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="by">
+                                  <object class="GtkSpinButton" id="by_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">base_pos_by_adjustment</property>
+                                    <property name="adjustment">base_pos_by_adjustment_l2</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
                                   </object>
@@ -397,10 +510,11 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="bx">
+                                  <object class="GtkSpinButton" id="bx_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">base_pos_bx_adjustment</property>
+                                    <property name="adjustment">base_pos_bx_adjustment_l2</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
                                   </object>
@@ -478,10 +592,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="phi_ad">
+                                  <object class="GtkSpinButton" id="phi_ad_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">arcs_size_ad_adjustment</property>
+                                    <property name="adjustment">arcs_size_ad_adjustment_l2</property>
                                     <property name="climb-rate">0.02</property>
                                     <property name="digits">3</property>
                                     <property name="numeric">True</property>
@@ -519,10 +633,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="phi_dc">
+                                  <object class="GtkSpinButton" id="phi_dc_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">arcs_size_dc_adjustment</property>
+                                    <property name="adjustment">arcs_size_dc_adjustment_l2</property>
                                     <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">3</property>
                                     <property name="numeric">True</property>
@@ -602,10 +716,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="r_top">
+                                  <object class="GtkSpinButton" id="r_top_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">top_level_radius_adjustment</property>
+                                    <property name="adjustment">top_level_radius_adjustment_l2</property>
                                     <property name="climb-rate">0.02</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
@@ -643,10 +757,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="r_bot">
+                                  <object class="GtkSpinButton" id="r_bot_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">bottom_level_radius_adjustment</property>
+                                    <property name="adjustment">bottom_level_radius_adjustment_l2</property>
                                     <property name="climb-rate">0.02</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
@@ -726,10 +840,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="p_ship">
+                                  <object class="GtkSpinButton" id="p_ship_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">pressure_ship_adjustment</property>
+                                    <property name="adjustment">pressure_ship_adjustment_l2</property>
                                     <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
@@ -767,10 +881,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="p_atm">
+                                  <object class="GtkSpinButton" id="p_atm_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">pressure_atm_adjustment</property>
+                                    <property name="adjustment">pressure_atm_adjustment_l2</property>
                                     <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
@@ -808,10 +922,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="p_top">
+                                  <object class="GtkSpinButton" id="p_top_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">pressure_top_adjustment</property>
+                                    <property name="adjustment">pressure_top_adjustment_l2</property>
                                     <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
@@ -837,7 +951,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label" translatable="yes">P bot (&lt;span style="italic"&gt;Pa&lt;/span&gt;): </property>
+                                    <property name="label" translatable="yes">P bottom (&lt;span style="italic"&gt;Pa&lt;/span&gt;): </property>
                                     <property name="use-markup">True</property>
                                   </object>
                                   <packing>
@@ -848,10 +962,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkSpinButton" id="p_bot">
+                                  <object class="GtkSpinButton" id="p_bot_l2">
                                     <property name="visible">True</property>
                                     <property name="can-focus">True</property>
-                                    <property name="adjustment">pressure_bot_adjustment</property>
+                                    <property name="adjustment">pressure_bot_adjustment_l2</property>
                                     <property name="climb-rate">0.029999999999999999</property>
                                     <property name="digits">2</property>
                                     <property name="numeric">True</property>
@@ -891,7 +1005,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkDrawingArea" id="drawing_area">
+                  <object class="GtkDrawingArea" id="drawing_area_l2">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                   </object>
@@ -907,6 +1021,881 @@
                 <property name="title" translatable="yes">2 levels</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="homogeneous">True</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="margin-bottom">9</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Base position:</property>
+                            <property name="xalign">0.019999999552965164</property>
+                            <attributes>
+                              <attribute name="style" value="normal"/>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="1.25"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <!-- n-columns=2 n-rows=2 -->
+                          <object class="GtkGrid">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="column-homogeneous">True</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">Ax (&lt;span style="italic"&gt;meters&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="ax_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">1.10</property>
+                                    <property name="adjustment">base_pos_ax_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">1.7</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">Ay (&lt;span style="italic"&gt;meters&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="ay_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">1.80</property>
+                                    <property name="adjustment">base_pos_ay_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">2.5</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">By (&lt;span style="italic"&gt;meters&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="by_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">1.25</property>
+                                    <property name="adjustment">base_pos_by_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999776482583</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">1.95</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">Bx (&lt;span style="italic"&gt;meters&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="bx_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">0.78</property>
+                                    <property name="adjustment">base_pos_bx_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">1.3799999999999999</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="margin-bottom">9</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Arcs sizes:</property>
+                            <property name="xalign">0.019999999552965164</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="1.25"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <!-- n-columns=2 n-rows=2 -->
+                          <object class="GtkGrid">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="column-homogeneous">True</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">phi (AD) (&lt;span style="italic"&gt;rad&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="phi_ad_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">3.120</property>
+                                    <property name="adjustment">arcs_size_ad_adjustment_l3</property>
+                                    <property name="climb-rate">0.02</property>
+                                    <property name="digits">3</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">3.12</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">phi (DC) (&lt;span style="italic"&gt;rad&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="phi_dc_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">1.169</property>
+                                    <property name="adjustment">arcs_size_dc_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">3</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">1.169</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">phi (DF) (&lt;span style="italic"&gt;rad&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="phi_df_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="adjustment">arcs_size_df_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">3</property>
+                                    <property name="numeric">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">phi (FE) (&lt;span style="italic"&gt;rad&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="phi_fe_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="adjustment">arcs_size_fe_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">3</property>
+                                    <property name="numeric">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="margin-bottom">9</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Levels radiuses:</property>
+                            <property name="xalign">0.019999999552965164</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="1.25"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <!-- n-columns=2 n-rows=2 -->
+                          <object class="GtkGrid">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="column-homogeneous">True</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">Top radius (&lt;span style="italic"&gt;meters&lt;/span&gt;):</property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="r_top_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">0.50</property>
+                                    <property name="adjustment">top_level_radius_adjustment_l3</property>
+                                    <property name="climb-rate">0.02</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">0.5</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">Bottom radius (&lt;span style="italic"&gt;meters&lt;/span&gt;):</property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="r_bot_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">0.35</property>
+                                    <property name="adjustment">bottom_level_radius_adjustment_l3</property>
+                                    <property name="climb-rate">0.02</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">0.34999999999999998</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">Middle radius (&lt;span style="italic"&gt;meters&lt;/span&gt;):</property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="r_mid_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="adjustment">middle_level_radius_adjustment_l3</property>
+                                    <property name="climb-rate">0.02</property>
+                                    <property name="digits">2</property>
+                                    <property name="value">0.40</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">Pressures:</property>
+                            <property name="xalign">0.019999999552965164</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="1.25"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <!-- n-columns=2 n-rows=4 -->
+                          <object class="GtkGrid">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="column-homogeneous">True</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">P ship (&lt;span style="italic"&gt;Pa&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="p_ship_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">1500.00</property>
+                                    <property name="adjustment">pressure_ship_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">800</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">2</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">P atm (&lt;span style="italic"&gt;Pa&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="p_atm_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">101325.00</property>
+                                    <property name="adjustment">pressure_atm_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">101324.99</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">3</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">P top (&lt;span style="italic"&gt;Pa&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="p_top_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">20000.00</property>
+                                    <property name="adjustment">pressure_top_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">20000</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">P bottom (&lt;span style="italic"&gt;Pa&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="p_bot_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="text" translatable="yes">6500.00</property>
+                                    <property name="adjustment">pressure_bot_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999999999999</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                    <property name="value">2000</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="label" translatable="yes">P middle (&lt;span style="italic"&gt;Pa&lt;/span&gt;): </property>
+                                    <property name="use-markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="padding">10</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton" id="p_mid_l3">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="adjustment">pressure_middle_adjustment_l3</property>
+                                    <property name="climb-rate">0.029999999776482583</property>
+                                    <property name="digits">2</property>
+                                    <property name="numeric">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack-type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkDrawingArea" id="drawing_area_l3">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">page1</property>
+                <property name="title" translatable="yes">3 levels</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -919,6 +1908,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">center</property>
+            <property name="icon-size">0</property>
             <property name="stack">stack1</property>
           </object>
           <packing>

@@ -520,11 +520,34 @@ int system_3_levels_fdf(const gsl_vector *x, void *p, gsl_vector *f, gsl_matrix 
 }
 
 
-
-static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector *B, double r_top, double r_mid, double r_bot, double phi_ad, double phi_dc, double phi_df, double phi_fe, struct system_3_levels_params *params, gsl_vector *x0)
+int system_3_levels_compute_init_config(const struct system_3_levels_user_params *user_params, gsl_vector *x0, struct system_3_levels_params *params)
 {
+    params->Ax = user_params->Ax;
+    params->Ay = user_params->Ay;
+    params->Bx = user_params->Bx;
+    params->By = user_params->By;
+    params->p_ac = user_params->p_ac;
+    params->p_atm = user_params->p_atm;
+    params->p_bot_0 = user_params->p_bot_0;
+    params->p_mid_0 = user_params->p_mid_0;
+    params->p_top_0 = user_params->p_top_0;
+    params->phi_ad_0 = user_params->phi_ad_0;
+    params->phi_dc_0 = user_params->phi_dc_0;
+    params->phi_df_0 = user_params->phi_df_0;
+    params->phi_fe_0 = user_params->phi_fe_0;
+    params->r_bot_0 = user_params->r_bot_0;
+    params->r_mid_0 = user_params->r_mid_0;
+    params->r_top_0 = user_params->r_top_0;
+
+    gsl_vector *A = gsl_vector_alloc(2);
+    gsl_vector_set(A,0,params->Ax);
+    gsl_vector_set(A,1,params->Ay);
+    gsl_vector *B = gsl_vector_alloc(2);
+    gsl_vector_set(B,0,params->Bx);
+    gsl_vector_set(B,1,params->By);
+
     gsl_vector *center_top = gsl_vector_alloc(2);
-    if(center_from_points_and_radius(A,B,r_top,center_top) != GSL_SUCCESS)
+    if(center_from_points_and_radius(A,B,params->r_top_0,center_top) != GSL_SUCCESS)
     {
         fprintf(stderr,"Failed to compute top level center point\n");
         exit(1);
@@ -540,18 +563,18 @@ static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector
         exit(1);
     }
 
-    double a_dc = a_ad+phi_ad;
-    double a_cb = a_dc+phi_dc;
+    double a_dc = a_ad+params->phi_ad_0;
+    double a_cb = a_dc+params->phi_dc_0;
 
     gsl_vector *D = gsl_vector_alloc(2);
-    if(point_from_alpha(a_dc,r_top,center_top,D) != GSL_SUCCESS)
+    if(point_from_alpha(a_dc,params->r_top_0,center_top,D) != GSL_SUCCESS)
     {
         fprintf(stderr,"Failed to compute point D\n");
         exit(1);
     }
 
     gsl_vector *C = gsl_vector_alloc(2);
-    if(point_from_alpha(a_cb,r_top,center_top,C) != GSL_SUCCESS)
+    if(point_from_alpha(a_cb,params->r_top_0,center_top,C) != GSL_SUCCESS)
     {
         fprintf(stderr,"Failed to compute point C\n");
         exit(1);
@@ -567,7 +590,7 @@ static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector
     }
 
     gsl_vector *center_mid = gsl_vector_alloc(2);
-    if(center_from_points_and_radius(C,D,r_mid,center_mid) != GSL_SUCCESS)
+    if(center_from_points_and_radius(C,D,params->r_mid_0,center_mid) != GSL_SUCCESS)
     {
         fprintf(stderr,"Failed to compute middle level center point\n");
         exit(1);
@@ -581,18 +604,18 @@ static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector
         exit(1);
     }
 
-    double a_fe = a_df+phi_df;
-    double a_ec = a_fe+phi_fe;
+    double a_fe = a_df+params->phi_df_0;
+    double a_ec = a_fe+params->phi_fe_0;
 
     gsl_vector *F = gsl_vector_alloc(2);
-    if(point_from_alpha(a_fe,r_mid,center_mid,F) != GSL_SUCCESS)
+    if(point_from_alpha(a_fe,params->r_mid_0,center_mid,F) != GSL_SUCCESS)
     {
         fprintf(stderr,"Failed to compute point F");
         exit(1);
     }
 
     gsl_vector *E = gsl_vector_alloc(2);
-    if(point_from_alpha(a_ec,r_mid,center_mid,E) != GSL_SUCCESS)
+    if(point_from_alpha(a_ec,params->r_mid_0,center_mid,E) != GSL_SUCCESS)
     {
         fprintf(stderr,"Failed to compute point E");
         exit(1);
@@ -608,7 +631,7 @@ static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector
     }
 
     gsl_vector *center_bot = gsl_vector_alloc(2);
-    if(center_from_points_and_radius(E,F,r_bot,center_bot) != GSL_SUCCESS)
+    if(center_from_points_and_radius(E,F,params->r_bot_0,center_bot) != GSL_SUCCESS)
     {
         fprintf(stderr,"Failed to compute bottom level center point\n");
         exit(1);
@@ -616,7 +639,7 @@ static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector
 
     gsl_vector *G = gsl_vector_alloc(2);
     gsl_vector_set(G,0,gsl_vector_get(center_bot,0));
-    gsl_vector_set(G,1,gsl_vector_get(center_bot,1)-r_bot);
+    gsl_vector_set(G,1,gsl_vector_get(center_bot,1)-params->r_bot_0);
     // gsl_vector_fprintf(stderr,E,"%g");
 
     gsl_vector *cG = vector_centred(G,center_bot);
@@ -637,21 +660,10 @@ static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector
         exit(1);
     }
 
-    params->Ax = gsl_vector_get(A,0);
-    params->Ay = gsl_vector_get(A,1);
-    params->Bx = gsl_vector_get(B,0);
-    params->By = gsl_vector_get(B,1);
-    params->phi_ad_0 = phi_ad;
     params->phi_cb_0 = phi_cb;
-    params->phi_dc_0 = phi_dc;
     params->phi_ec_0 = phi_ec;
-    params->phi_fe_0 = phi_fe;
-    params->phi_df_0 = phi_df;
     params->phi_ge_0 = phi_ge;
     params->phi_gf_0 = phi_gf;
-    params->r_bot_0 = r_bot;
-    params->r_mid_0 = r_mid;
-    params->r_top_0 = r_top;
 
     double x_center_top = gsl_vector_get(center_top,0);
     double y_center_top = gsl_vector_get(center_top,1);
@@ -659,43 +671,47 @@ static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector
     double y_center_mid = gsl_vector_get(center_mid,1);
     double x_center_bot = gsl_vector_get(center_bot,0);
     double y_center_bot = gsl_vector_get(center_bot,1);
-    gsl_vector_set(x0,0,phi_ad);
-    gsl_vector_set(x0,1,r_top);
+
+    gsl_vector_set(x0,0,params->phi_ad_0);
+    gsl_vector_set(x0,1,params->r_top_0);
     gsl_vector_set(x0,2,x_center_top);
     gsl_vector_set(x0,3,y_center_top);
     gsl_vector_set(x0,4,a_ad);
     gsl_vector_set(x0,5,phi_cb);
-    gsl_vector_set(x0,6,r_top);
+    gsl_vector_set(x0,6,params->r_top_0);
     gsl_vector_set(x0,7,x_center_top);
     gsl_vector_set(x0,8,y_center_top);
     gsl_vector_set(x0,9,a_cb);
-    gsl_vector_set(x0,10,phi_dc);
-    gsl_vector_set(x0,11,r_top);
+    gsl_vector_set(x0,10,params->phi_dc_0);
+    gsl_vector_set(x0,11,params->r_top_0);
     gsl_vector_set(x0,12,x_center_top);
     gsl_vector_set(x0,13,y_center_top);
     gsl_vector_set(x0,14,a_dc);
-    gsl_vector_set(x0,15,phi_df);
-    gsl_vector_set(x0,16,r_mid);
+    gsl_vector_set(x0,15,params->phi_df_0);
+    gsl_vector_set(x0,16,params->r_mid_0);
     gsl_vector_set(x0,17,x_center_mid);
     gsl_vector_set(x0,18,y_center_mid);
     gsl_vector_set(x0,19,a_df);
     gsl_vector_set(x0,20,phi_ec);
-    gsl_vector_set(x0,21,r_mid);
+    gsl_vector_set(x0,21,params->r_mid_0);
     gsl_vector_set(x0,22,x_center_mid);
     gsl_vector_set(x0,23,y_center_mid);
     gsl_vector_set(x0,24,a_ec);
-    gsl_vector_set(x0,25,phi_fe);
-    gsl_vector_set(x0,26,r_mid);
+    gsl_vector_set(x0,25,params->phi_fe_0);
+    gsl_vector_set(x0,26,params->r_mid_0);
     gsl_vector_set(x0,27,x_center_mid);
     gsl_vector_set(x0,28,y_center_mid);
     gsl_vector_set(x0,29,a_fe);
     gsl_vector_set(x0,30,phi_ge);
-    gsl_vector_set(x0,31,r_bot);
+    gsl_vector_set(x0,31,params->r_bot_0);
     gsl_vector_set(x0,32,y_center_bot);
     gsl_vector_set(x0,33,phi_gf);
-    gsl_vector_set(x0,34,r_bot);
+    gsl_vector_set(x0,34,params->r_bot_0);
     gsl_vector_set(x0,35,y_center_bot);
     gsl_vector_set(x0,36,x_center_bot);
+    gsl_vector_set(x0,37,params->p_top_0);
+    gsl_vector_set(x0,38,params->p_mid_0);
+    gsl_vector_set(x0,39,params->p_bot_0);
 
     gsl_vector_free(cA);
     gsl_vector_free(cB);
@@ -715,33 +731,6 @@ static int __compute_init_levels_positions(const gsl_vector *A, const gsl_vector
     gsl_vector_free(center_bot);
     gsl_vector_free(center_mid);
     gsl_vector_free(center_top);
-
-    return GSL_SUCCESS;
-}
-
-
-int system_3_levels_compute_init_config(double Ax, double Ay, double Bx, double By, double phi_ad, double phi_dc, double phi_df, double phi_fe, double r_top, double r_mid, double r_bot, double k, double p_top, double p_mid, double p_bot, double p, double p_ac, struct system_3_levels_params *params, gsl_vector *x0)
-{
-    gsl_vector *A = gsl_vector_alloc(2);
-    gsl_vector_set(A,0,Ax);
-    gsl_vector_set(A,1,Ay);
-    gsl_vector *B = gsl_vector_alloc(2);
-    gsl_vector_set(B,0,Bx);
-    gsl_vector_set(B,1,By);
-    if(__compute_init_levels_positions(A,B,r_top,r_mid,r_bot,phi_ad,phi_dc,phi_df,phi_fe,params,x0) != GSL_SUCCESS)
-    {
-        fprintf(stderr,"Failed to compute initial levels position\n");
-        exit(1);
-    }
-    params->p_top_0 = p_top;
-    params->p_mid_0 = p_mid;
-    params->p_bot_0 = p_bot;
-    params->p_ac = p_ac;
-
-    gsl_vector_set(x0,37,p_top);
-    gsl_vector_set(x0,38,p_mid);
-    gsl_vector_set(x0,39,p_bot);
-
     gsl_vector_free(A);
     gsl_vector_free(B);
 
@@ -749,11 +738,73 @@ int system_3_levels_compute_init_config(double Ax, double Ay, double Bx, double 
 }
 
 
-int system_3_levels_eval()
+void system_3_levels_x_to_res(const gsl_vector *x, struct system_3_levels_result *result)
 {
+    result->phi_ad = gsl_vector_get(x,0);
+    result->r_ad = gsl_vector_get(x,1);
+    result->x_ad = gsl_vector_get(x,2);
+    result->y_ad = gsl_vector_get(x,3);
+    result->a_ad = gsl_vector_get(x,4);
+    result->phi_cb = gsl_vector_get(x,5);
+    result->r_cb = gsl_vector_get(x,6);
+    result->x_cb = gsl_vector_get(x,7);
+    result->y_cb = gsl_vector_get(x,8);
+    result->a_cb = gsl_vector_get(x,9);
+    result->phi_dc = gsl_vector_get(x,10);
+    result->r_dc = gsl_vector_get(x,11);
+    result->x_dc = gsl_vector_get(x,12);
+    result->y_dc = gsl_vector_get(x,13);
+    result->a_dc = gsl_vector_get(x,14);
+    result->phi_df = gsl_vector_get(x,15);
+    result->r_df = gsl_vector_get(x,16);
+    result->x_df = gsl_vector_get(x,17);
+    result->y_df = gsl_vector_get(x,18);
+    result->a_df = gsl_vector_get(x,19);
+    result->phi_ec = gsl_vector_get(x,20);
+    result->r_ec = gsl_vector_get(x,21);
+    result->x_ec = gsl_vector_get(x,22);
+    result->y_ec = gsl_vector_get(x,23);
+    result->a_ec = gsl_vector_get(x,24);
+    result->phi_fe = gsl_vector_get(x,25);
+    result->r_fe = gsl_vector_get(x,26);
+    result->x_fe = gsl_vector_get(x,27);
+    result->y_fe = gsl_vector_get(x,28);
+    result->a_fe = gsl_vector_get(x,29);
+    result->phi_ge = gsl_vector_get(x,30);
+    result->r_ge = gsl_vector_get(x,31);
+    result->y_ge = gsl_vector_get(x,32);
+    result->phi_gf = gsl_vector_get(x,33);
+    result->r_gf = gsl_vector_get(x,34);
+    result->y_gf = gsl_vector_get(x,35);
+    result->x_bot = gsl_vector_get(x,36);
+    result->p_top = gsl_vector_get(x,37);
+    result->p_mid = gsl_vector_get(x,38);
+    result->p_bot = gsl_vector_get(x,39);
+}
+
+
+int system_3_levels_eval_f()
+{
+    struct system_3_levels_user_params user_params;
     struct system_3_levels_params params;
     gsl_vector *x0 = gsl_vector_alloc(N_eq);
-    system_3_levels_compute_init_config(0.482,1.4,0.28,0.85,3.129,1.162,1.8,1.0,0.5,0.35,0.2,1,20000,6500,3000,101325,1000,&params,x0);
+    user_params.Ax = 0.482;
+    user_params.Ay = 1.8;
+    user_params.Bx = 0.78;
+    user_params.By = 1.25;
+    user_params.p_ac = 1500;
+    user_params.p_atm = 101325;
+    user_params.p_bot_0 = 6500;
+    user_params.p_mid_0 = 12000;
+    user_params.p_top_0 = 20000;
+    user_params.phi_ad_0 = 3.129;
+    user_params.phi_dc_0 = 1.162;
+    user_params.phi_df_0 = 1.8;
+    user_params.phi_fe_0 = 1.0;
+    user_params.r_bot_0 = 0.3;
+    user_params.r_mid_0 = 0.4;
+    user_params.r_top_0 = 0.5;
+    system_3_levels_compute_init_config(&user_params,x0,&params);
 
     const gsl_multiroot_fdfsolver_type *T = gsl_multiroot_fdfsolver_newton;
     gsl_multiroot_fdfsolver *s = gsl_multiroot_fdfsolver_alloc(T,N_eq);
@@ -792,6 +843,50 @@ int system_3_levels_eval()
     FILE *fx = fopen("3_levels.txt","w");
     gsl_vector_fprintf(fx,s->x,"%g");
     fclose(fx);
+
+    gsl_vector_free(x0);
+    gsl_multiroot_fdfsolver_free(s);
+
+    return GSL_SUCCESS;
+}
+
+
+int system_3_levels_eval(const struct system_3_levels_user_params *user_params, struct system_3_levels_result *result)
+{
+    if(!user_params || !result)
+        return -1;
+
+    struct system_3_levels_params params;
+    gsl_vector *x0 = gsl_vector_alloc(N_eq);
+    system_3_levels_compute_init_config(user_params,x0,&params);
+
+    const gsl_multiroot_fdfsolver_type *T = gsl_multiroot_fdfsolver_newton;
+    gsl_multiroot_fdfsolver *s = gsl_multiroot_fdfsolver_alloc(T,N_eq);
+
+    gsl_multiroot_function_fdf fdf;
+    fdf.f = system_3_levels_f;
+    fdf.df = system_3_levels_df;
+    fdf.fdf = system_3_levels_fdf;
+    fdf.n = N_eq;
+    fdf.params = &params;
+
+    gsl_multiroot_fdfsolver_set(s,&fdf,x0);
+
+    size_t max_iters = 100;
+    size_t iter = 0;
+    double eps = 1e-7;
+    int status;
+    do
+    {
+        status = gsl_multiroot_fdfsolver_iterate(s);
+        if(status)
+            break;
+        
+        status = gsl_multiroot_test_residual(s->f,eps);
+        ++iter;
+    } while(status == GSL_CONTINUE && iter < max_iters);
+
+    system_3_levels_x_to_res(s->x,result);
 
     gsl_vector_free(x0);
     gsl_multiroot_fdfsolver_free(s);

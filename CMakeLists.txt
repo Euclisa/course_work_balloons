@@ -4,7 +4,7 @@ project(cw LANGUAGES C)
 
 set(CMAKE_C_EXTENSIONS ON)
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -Wall -fsanitize=address,undefined") # -fsanitize=address,undefined
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -Wall") # -fsanitize=address,undefined
 add_definitions(-DCW_PROJECT_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 
 find_package(PkgConfig REQUIRED)

@@ -831,7 +831,7 @@ int system_2_levels_eval_f()
     user_params.p_ac = 1500;
     system_2_levels_compute_init_config(&user_params,x0,&params);
 
-    const gsl_multiroot_fdfsolver_type *T = gsl_multiroot_fdfsolver_newton;
+    const gsl_multiroot_fdfsolver_type *T = gsl_multiroot_fdfsolver_hybridsj;
     gsl_multiroot_fdfsolver *s = gsl_multiroot_fdfsolver_alloc(T,N_eq);
 
     gsl_multiroot_function_fdf fdf;
@@ -907,14 +907,11 @@ void system_2_levels_x_to_res(const gsl_vector *x, struct system_2_levels_result
 
 int __system_2_levels_eval_general(const struct system_2_levels_user_params *user_params, struct system_2_levels_result *result, gsl_solver_f_t f_ptr, gsl_solver_df_t df_ptr, gsl_solver_fdf_t fdf_ptr)
 {
-    if(!user_params || !result)
-        return -1;
-
     struct system_2_levels_params params;
     gsl_vector *x0 = gsl_vector_alloc(N_eq);
     system_2_levels_compute_init_config(user_params,x0,&params);
 
-    const gsl_multiroot_fdfsolver_type *T = gsl_multiroot_fdfsolver_newton;
+    const gsl_multiroot_fdfsolver_type *T = gsl_multiroot_fdfsolver_hybridsj;
     gsl_multiroot_fdfsolver *s = gsl_multiroot_fdfsolver_alloc(T,N_eq);
 
     gsl_multiroot_function_fdf fdf;
@@ -926,16 +923,13 @@ int __system_2_levels_eval_general(const struct system_2_levels_user_params *use
 
     gsl_multiroot_fdfsolver_set(s,&fdf,x0);
 
-    size_t max_iters = 100;
+    size_t max_iters = 1000;
     size_t iter = 0;
     double eps = 1e-7;
     int status;
     do
     {
-        status = gsl_multiroot_fdfsolver_iterate(s);
-        if(status)
-            break;
-        
+        gsl_multiroot_fdfsolver_iterate(s);
         status = gsl_multiroot_test_residual(s->f,eps);
         ++iter;
     } while(status == GSL_CONTINUE && iter < max_iters);
